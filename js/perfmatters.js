@@ -9,26 +9,24 @@ function logCRP() {
   stats.textContent = 'DCL: ' + dcl + 'ms, onload: ' + complete + 'ms';
 }
 
+function cb() {
+  add_link_to_header('css/style.css');
+}
+
+function cb2() {
+  add_link_to_header('//fonts.googleapis.com/css?family=Open+Sans:400,700');
+}
+
+function add_link_to_header(href) {
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = href;
+  var head = document.getElementsByTagName('head')[0];
+  head.parentNode.appendChild(link);
+}
+
 window.addEventListener("load", function(event) {
   logCRP();
+  cb();
+  cb2();
 });
-
-var cb = function() {
-  var l = document.createElement('link'); l.rel = 'stylesheet';
-  l.href = 'css/style.css';
-  var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
-};
-var cb2 = function() {
-  var l = document.createElement('link'); l.rel = 'stylesheet';
-  l.href = '//fonts.googleapis.com/css?family=Open+Sans:400,700';
-  var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
-};
-
-var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-    webkitRequestAnimationFrame || msRequestAnimationFrame;
-
-if (raf){
-  raf(cb);
-} else {
-  window.addEventListener('load', cb2);
-}
